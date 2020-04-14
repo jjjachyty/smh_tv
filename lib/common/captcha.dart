@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_progress_button/flutter_progress_button.dart';
 import 'package:smh_tv/models/Captcha.dart';
-import 'package:smh_tv/ui/register.dart';
+import 'package:smh_tv/page/register.dart';
 
 class CaptchaPage extends StatefulWidget {
   String phone;

@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 // import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:smh_tv/ui/tv_page.dart';
+import 'package:smh_tv/page/tv_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'init.dart';

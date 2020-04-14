@@ -2,8 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:smh_tv/common/init.dart';
 
-import 'ui/tv_page.dart';
+import 'page/tv_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -35,6 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
+    init();
     startTimeout();
     super.initState();
   }

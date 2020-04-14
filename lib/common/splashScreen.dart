@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:smh_tv/common/version.dart';
-import 'package:smh_tv/ui/tv_page.dart';
+import 'package:smh_tv/page/tv_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 

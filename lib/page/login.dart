@@ -6,7 +6,7 @@ import 'package:flutter_progress_button/flutter_progress_button.dart';
 import 'package:smh_tv/common/captcha.dart';
 import 'package:smh_tv/common/utils.dart';
 import 'package:smh_tv/models/user.dart';
-import 'package:smh_tv/ui/register.dart';
+import 'package:smh_tv/page/register.dart';
 
 RegExp phoneExp = RegExp(
     r'^((13[0-9])|(14[0-9])|(15[0-9])|(16[0-9])|(17[0-9])|(18[0-9])|(19[0-9]))\d{8}$');

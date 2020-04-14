@@ -80,10 +80,9 @@ class TVWidgetState extends State<TVWidget> {
             print("keyCode: ${rawKeyEventDataAndroid.keyCode}");
             switch (rawKeyEventDataAndroid.keyCode) {
               case 19: //KEY_UP
-//                DefaultFocusTraversal.of(context).inDirection(
-//                    FocusScope.of(context).focusedChild, TraversalDirection.up);
-                FocusScope.of(context)
-                    .focusInDirection(TraversalDirection.up);
+                // DefaultFocusTraversal.of(context).inDirection(
+                //     FocusScope.of(context).focusedChild, TraversalDirection.up);
+                FocusScope.of(context).focusInDirection(TraversalDirection.up);
                 break;
               case 20: //KEY_DOWN
                 FocusScope.of(context)
@@ -94,7 +93,7 @@ class TVWidgetState extends State<TVWidget> {
                 FocusScope.of(context)
                     .focusInDirection(TraversalDirection.left);
                 // 手动指定下一个焦点
-               // FocusScope.of(context).requestFocus(focusNode);
+                // FocusScope.of(context).requestFocus(focusNode);
                 break;
               case 22: //KEY_RIGHT
 //                            FocusScope.of(context).requestFocus(focusNodeB1);
