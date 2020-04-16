@@ -5,24 +5,34 @@ import 'package:flutter/widgets.dart';
 class TVWidget extends StatefulWidget {
   TVWidget(
       {Key key,
+      this.focusNode,
       @required this.child,
       @required this.focusChange,
       @required this.onclick,
       @required this.decoration,
+      @required this.upNode,
+      @required this.downNode,
+      @required this.leftNode,
+      @required this.rightNode,
       @required this.hasDecoration = true,
       @required this.requestFocus = false})
       : super(key: key);
 
   Widget child;
+  FocusNode focusNode;
   onFocusChange focusChange;
   onClick onclick;
   bool requestFocus;
   BoxDecoration decoration;
   bool hasDecoration;
+  FocusNode upNode;
+  FocusNode leftNode;
+  FocusNode downNode;
+  FocusNode rightNode;
 
   @override
   State<StatefulWidget> createState() {
-    return TVWidgetState();
+    return TVWidgetState(this.focusNode);
   }
 }
 
@@ -31,19 +41,25 @@ typedef void onClick();
 
 class TVWidgetState extends State<TVWidget> {
   FocusNode _focusNode;
+  TVWidgetState(this._focusNode);
+
   bool init = false;
   var default_decoration = BoxDecoration(
-      border: Border.all(width: 3, color: Colors.deepOrange),
+      border: Border.all(width: 3, color: Colors.white),
       borderRadius: BorderRadius.all(
-        Radius.circular(5),
+        Radius.circular(10),
       ));
   var decoration = null;
 
   @override
   void initState() {
     super.initState();
-    _focusNode = FocusNode();
+    if (widget.focusNode == null) {
+      _focusNode = FocusNode();
+    }
+
     _focusNode.addListener(() {
+      print("_focusNode.addListener");
       if (widget.focusChange != null) {
         widget.focusChange(_focusNode.hasFocus);
       }
@@ -66,6 +82,7 @@ class TVWidgetState extends State<TVWidget> {
   @override
   Widget build(BuildContext context) {
     if (widget.requestFocus && !init) {
+      print("init--------------------0");
       FocusScope.of(context).requestFocus(_focusNode);
       init = true;
     }
@@ -77,28 +94,52 @@ class TVWidgetState extends State<TVWidget> {
             RawKeyDownEvent rawKeyDownEvent = event;
             RawKeyEventDataAndroid rawKeyEventDataAndroid =
                 rawKeyDownEvent.data;
-            print("keyCode: ${rawKeyEventDataAndroid.keyCode}");
+
             switch (rawKeyEventDataAndroid.keyCode) {
               case 19: //KEY_UP
-                // DefaultFocusTraversal.of(context).inDirection(
-                //     FocusScope.of(context).focusedChild, TraversalDirection.up);
-                FocusScope.of(context).focusInDirection(TraversalDirection.up);
+                if (widget.upNode != null) {
+                  FocusScope.of(context).requestFocus(widget.upNode);
+                  return;
+                }
+                FocusScope.of(context).autofocus(_focusNode);
+
                 break;
               case 20: //KEY_DOWN
-                FocusScope.of(context)
-                    .focusInDirection(TraversalDirection.down);
+                // FocusScope.of(context)
+                //     .focusInDirection(TraversalDirection.down);
+                // FocusScope.of(FocusManager.instance.primaryFocus.context)
+                //   .focusInDirection(TraversalDirection.down);
+                if (widget.downNode != null) {
+                  FocusScope.of(context).requestFocus(widget.downNode);
+                  return;
+                }
+
+                FocusScope.of(context).autofocus(_focusNode);
                 break;
               case 21: //KEY_LEFT
+                //  DefaultFocusTraversal.of(context).inDirection(
+                //         FocusScope.of(context).focusedChild, TraversalDirection.left);
 //                            FocusScope.of(context).requestFocus(focusNodeB0);
-                FocusScope.of(context)
-                    .focusInDirection(TraversalDirection.left);
+                if (widget.leftNode != null) {
+                  FocusScope.of(context).requestFocus(widget.leftNode);
+                  return;
+                }
+                FocusScope.of(context).autofocus(_focusNode);
+                
                 // 手动指定下一个焦点
                 // FocusScope.of(context).requestFocus(focusNode);
                 break;
               case 22: //KEY_RIGHT
+
+                if (widget.rightNode != null) {
+                  FocusScope.of(context).requestFocus(widget.rightNode);
+                  return;
+                }
+                FocusScope.of(context).autofocus(_focusNode);
+
 //                            FocusScope.of(context).requestFocus(focusNodeB1);
-                FocusScope.of(context)
-                    .focusInDirection(TraversalDirection.right);
+                // FocusScope.of(context)
+                //     .focusInDirection(TraversalDirection.right);
 //                DefaultFocusTraversal.of(context)
 //                    .inDirection(_focusNode, TraversalDirection.right);
 //                if(_focusNode.nextFocus()){

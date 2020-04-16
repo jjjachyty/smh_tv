@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:smh_tv/utils/time_utils.dart';
 import 'package:smh_tv/widgets/tv_widget.dart';
 
+import 'focus_node.dart';
 import 'home_page.dart';
 import 'list_page.dart';
 
@@ -25,16 +26,18 @@ class TVPageState extends State<TVPage> with SingleTickerProviderStateMixin {
   var timeString = TimeUtils.getTime();
 
   bool init = false;
-  FocusNode focusNodeB0 = FocusNode();
-  FocusNode focusNodeB1 = FocusNode();
+
+
 
   @override
   void initState() {
     super.initState();
     //initialIndex为初始选中第几个，length为数量
     _tabController = TabController(initialIndex: 0, length: 8, vsync: this);
+  
     // 监听
     _tabController.addListener(() {
+      print("_tabController");
       switch (_tabController.index) {
         case 0:
           break;
@@ -43,20 +46,7 @@ class TVPageState extends State<TVPage> with SingleTickerProviderStateMixin {
       }
     });
 
-    focusNodeB0.addListener(() {
-      if (focusNodeB0.hasFocus) {
-        setState(() {
-          _tabController.animateTo(0);
-        });
-      }
-    });
-    focusNodeB1.addListener(() {
-      if (focusNodeB1.hasFocus) {
-        setState(() {
-          _tabController.animateTo(1);
-        });
-      }
-    });
+
   }
 
   @override
@@ -73,7 +63,7 @@ class TVPageState extends State<TVPage> with SingleTickerProviderStateMixin {
             size: 50,
           ),
           title: Text(
-            '芒果TV',
+            '书名号TV',
             style: TextStyle(
                 fontSize: 30, color: Colors.white, fontStyle: FontStyle.italic),
           ),
@@ -95,8 +85,11 @@ class TVPageState extends State<TVPage> with SingleTickerProviderStateMixin {
             tabs: <Widget>[
               Tab(
                 child: TVWidget(
-                  hasDecoration: false,
+                  focusNode: focusNode0,
+                  rightNode: focusNode1,
+                  hasDecoration: true,
                   focusChange: (hasFocus) {
+                    print("首页${hasFocus}");
                     if (hasFocus) {
                       setState(() {
                         _tabController.animateTo(0);
@@ -104,7 +97,7 @@ class TVPageState extends State<TVPage> with SingleTickerProviderStateMixin {
                     }
                   },
                   child: Text(
-                    '首页',
+                    '首页'+context.hashCode.toString(),
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   requestFocus: true,
@@ -112,8 +105,12 @@ class TVPageState extends State<TVPage> with SingleTickerProviderStateMixin {
               ),
               Tab(
                   child: TVWidget(
-                hasDecoration: false,
+                     focusNode: focusNode1,
+                  rightNode: focusNode2,
+                  leftNode: focusNode0,
+                 hasDecoration: true,
                 focusChange: (hasFocus) {
+                   print("精选${hasFocus}");
                   if (hasFocus) {
                     setState(() {
                       _tabController.animateTo(1);
@@ -127,8 +124,13 @@ class TVPageState extends State<TVPage> with SingleTickerProviderStateMixin {
               )),
               Tab(
                   child: TVWidget(
-                hasDecoration: false,
+                    leftNode: focusNode1,
+                    focusNode: focusNode2,
+                  rightNode: focusNode3,
+                  
+                 hasDecoration: true,
                 focusChange: (hasFocus) {
+                  print("国产${hasFocus}");
                   if (hasFocus) {
                     setState(() {
                       _tabController.animateTo(2);
@@ -139,14 +141,19 @@ class TVPageState extends State<TVPage> with SingleTickerProviderStateMixin {
                   print("点击");
                 },
                 child: Text(
+                  
                   '国产',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               )),
               Tab(
                   child: TVWidget(
-                hasDecoration: false,
+                    leftNode: focusNode2,
+                    focusNode: focusNode3,
+                  rightNode: focusNode4,
+       hasDecoration: true,
                 focusChange: (hasFocus) {
+                  print("欧美${hasFocus}");
                   if (hasFocus) {
                     setState(() {
                       _tabController.animateTo(3);
@@ -160,8 +167,12 @@ class TVPageState extends State<TVPage> with SingleTickerProviderStateMixin {
               )),
               Tab(
                 child: TVWidget(
-                  hasDecoration: false,
+                    leftNode: focusNode3,
+                    focusNode: focusNode4,
+                  rightNode: focusNode5,
+                 hasDecoration: true,
                   focusChange: (hasFocus) {
+                     print("日漫${hasFocus}");
                     if (hasFocus) {
                       setState(() {
                         _tabController.animateTo(4);
@@ -176,8 +187,12 @@ class TVPageState extends State<TVPage> with SingleTickerProviderStateMixin {
               ),
               Tab(
                 child: TVWidget(
-                  hasDecoration: false,
+                  leftNode: focusNode4,
+                    focusNode: focusNode5,
+                  rightNode: focusNode6,
+                  hasDecoration: true,
                   focusChange: (hasFocus) {
+                     print("亲子${hasFocus}");
                     if (hasFocus) {
                       setState(() {
                         _tabController.animateTo(5);
@@ -192,8 +207,12 @@ class TVPageState extends State<TVPage> with SingleTickerProviderStateMixin {
               ),
               Tab(
                 child: TVWidget(
-                  hasDecoration: false,
+                  leftNode: focusNode5,
+                    focusNode: focusNode6,
+                  rightNode: focusNode7,
+                   hasDecoration: true,
                   focusChange: (hasFocus) {
+                     print("少综${hasFocus}");
                     if (hasFocus) {
                       setState(() {
                         _tabController.animateTo(6);
@@ -208,14 +227,17 @@ class TVPageState extends State<TVPage> with SingleTickerProviderStateMixin {
               ),
               Tab(
                 child: TVWidget(
+                  leftNode: focusNode6,
+                    focusNode: focusNode7,
                   focusChange: (hasFocus) {
+                    print("分类${hasFocus}");
                     if (hasFocus) {
                       setState(() {
                         _tabController.animateTo(7);
                       });
                     }
                   },
-                  hasDecoration: false,
+                  hasDecoration: true,
                   child: Text(
                     '分类',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -227,6 +249,7 @@ class TVPageState extends State<TVPage> with SingleTickerProviderStateMixin {
         ),
         body: TabBarView(
           controller: _tabController,
+          physics: AlwaysScrollableScrollPhysics(),
           children: <Widget>[
             HomePage(),
             ListPage(),

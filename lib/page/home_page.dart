@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:smh_tv/models/movie.dart';
+import 'package:smh_tv/page/focus_node.dart';
 import 'package:smh_tv/widgets/tv_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -40,9 +41,9 @@ class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
           Flexible(
             child: Column(
               children: <Widget>[
-                _buildItem(0),
-                _buildItem(1),
-                _buildItem(2),
+                _buildItem(0,null,focusNode0),
+                _buildItem(1,null,null),
+                _buildItem(2,null,null),
               ],
             ),
             flex: 1,
@@ -50,13 +51,13 @@ class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
           Flexible(
             child: Column(
               children: <Widget>[
-                _buildImageItem(0, 2),
+                _buildImageItem(0, 2,null,focusNode0),
                 Expanded(
                     flex: 1,
                     child: Row(
                       children: <Widget>[
-                        _buildImageItem(1, 1),
-                        _buildImageItem(2, 1),
+                        _buildImageItem(1, 1,null,null),
+                        _buildImageItem(2, 1,null,null),
                       ],
                     )),
               ],
@@ -66,8 +67,8 @@ class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
           Flexible(
             child: Column(
               children: <Widget>[
-                _buildImageItem(3, 2),
-                _buildImageItem(4, 1),
+                _buildImageItem(3, 2,null,focusNode0),
+                _buildImageItem(4, 1,null,null),
               ],
             ),
             flex: 2,
@@ -75,8 +76,8 @@ class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
           Flexible(
             child: Column(
               children: <Widget>[
-                _buildImageItem(3, 2),
-                _buildImageItem(4, 1),
+                _buildImageItem(3, 2,null,focusNode0),
+                _buildImageItem(4, 1,null,null),
               ],
             ),
             flex: 2,
@@ -86,9 +87,11 @@ class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
     );
   }
 
-  _buildItem(int index) {
+  _buildItem(int index,FocusNode node,FocusNode upNode) {
     return Expanded(
       child: TVWidget(
+        focusNode: node,
+          upNode: upNode,
           child: Container(
         width: MediaQuery.of(context).size.width,
         child: GestureDetector(
@@ -101,7 +104,7 @@ class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text("data"),
+                  _icons[index],
                 ],
               ),
             ),
@@ -115,9 +118,11 @@ class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
     );
   }
 
-  _buildImageItem(int index, int flex) {
+  _buildImageItem(int index, int flex,FocusNode node,FocusNode upNode) {
     return Expanded(
       child: TVWidget(
+        focusNode: node,
+        upNode: upNode,
         child: Container(
           width: MediaQuery.of(context).size.width,
           child: GestureDetector(
@@ -152,15 +157,15 @@ class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
                             movies[index].Name,
                             style: TextStyle(color: Colors.white, fontSize: 18),
                           ),
-                          index == 3
-                              ? Icon(
-                                  Icons.search,
-                                  size: 38,
-                                  color: Colors.white,
-                                )
-                              : SizedBox(
-                                  height: 0,
-                                ),
+                          // index == 3
+                          //     ? Icon(
+                          //         Icons.search,
+                          //         size: 38,
+                          //         color: Colors.white,
+                          //       )
+                          //     : SizedBox(
+                          //         height: 0,
+                          //       ),
                         ],
                       ),
                       color: _colors.elementAt(index).withAlpha(240),
@@ -213,7 +218,7 @@ class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
       color: Colors.white,
     ),
     Icon(
-      Icons.event,
+      Icons.account_box,
       size: 38,
       color: Colors.white,
     ),
